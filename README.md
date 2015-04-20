@@ -1,2 +1,2 @@
-# TechStacksAndroidApp
-TechStacks Mobile Android App
+# TechStacks Android App
+
