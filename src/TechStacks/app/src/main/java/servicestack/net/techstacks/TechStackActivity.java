@@ -10,9 +10,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.internal.util.Predicate;
+import com.squareup.picasso.Picasso;
 
 import net.servicestack.client.Utils;
+import net.servicestack.func.Predicate;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ import servicestack.net.techstacks.dto.Option;
 import servicestack.net.techstacks.dto.TechStackDetails;
 import servicestack.net.techstacks.dto.TechnologyInStack;
 
-import static net.servicestack.client.Func.*;
+import static net.servicestack.func.Func.*;
 
 public class TechStackActivity extends Activity implements App.AppDataListener {
 
@@ -32,13 +33,13 @@ public class TechStackActivity extends Activity implements App.AppDataListener {
         Bundle extras = getIntent().getExtras();
 
         App.getData()
-            .addListener(this)
-            .loadTechStack(extras.getString("slug"));
+                .addListener(this)
+                .loadTechStack(extras.getString("slug"));
 
         setLoadingTextViews(
-            R.id.lblTechStackName,
-            R.id.lblTechStackDescription,
-            R.id.lblTechStackAppUrl);
+                R.id.lblTechStackName,
+                R.id.lblTechStackDescription,
+                R.id.lblTechStackAppUrl);
 
         ImageView img = (ImageView) findViewById(R.id.imgTechStackScreenshotUrl);
         img.setImageBitmap(null);
@@ -82,12 +83,7 @@ public class TechStackActivity extends Activity implements App.AppDataListener {
                 String imgUrl = result.getScreenshotUrl();
                 if (imgUrl != null){
                     final ImageView img = (ImageView) findViewById(R.id.imgTechStackScreenshotUrl);
-                    data.loadImage(imgUrl, new App.ImageResult() {
-                        @Override
-                        public void success(Bitmap response) {
-                            img.setImageBitmap(response);
-                        }
-                    });
+                    Picasso.with(getApplicationContext()).load(imgUrl).into(img);
                 }
 
                 renderCategories(result);
@@ -131,18 +127,13 @@ public class TechStackActivity extends Activity implements App.AppDataListener {
                         App.openTechnology(activity, x.getSlug());
                     }
                 });
-                App.getData().loadImage(x.getLogoUrl(), new App.ImageResult() {
-                    @Override
-                    public void success(Bitmap response) {
-                        img.setImageBitmap(response);
-                    }
-                });
+                Picasso.with(getApplicationContext()).load(x.getLogoUrl()).into(img);
 
                 if (i % 3 == 0){
                     layoutCategories = new LinearLayout(this);
                     layoutCategories.setOrientation(LinearLayout.HORIZONTAL);
                     layout.addView(layoutCategories,
-                        new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                            new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                 }
 
                 layoutCategories.addView(img,

@@ -1,7 +1,5 @@
 package servicestack.net.techstacks;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,21 +19,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
-import com.android.internal.util.Predicate;
-
 import java.util.ArrayList;
+
+import net.servicestack.func.Function;
+import net.servicestack.func.Predicate;
 
 import servicestack.net.techstacks.dto.*;
 import servicestack.net.techstacks.dto.Technology;
 import servicestack.net.techstacks.dto.TechnologyInfo;
 import servicestack.net.techstacks.dto.TechnologyStack;
 
-import static net.servicestack.client.Func.Function;
-import static net.servicestack.client.Func.filter;
-import static net.servicestack.client.Func.map;
+import static net.servicestack.func.Func.filter;
+import static net.servicestack.func.Func.map;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
 
@@ -67,7 +64,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         actionBar.setStackedBackgroundDrawable(getResources().getDrawable(R.color.tab_background));
         actionBar.setIcon(R.drawable.ic_actionbar);
 
-            // Create the adapter that will return a fragment for each of the three
+        // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -292,8 +289,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             App.getData()
-                .addListener(this)
-                .searchTechStacks("");
+                    .addListener(this)
+                    .searchTechStacks("");
         }
 
         @Override
@@ -358,8 +355,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             App.getData()
-                .addListener(this)
-                .searchTechnologies("");
+                    .addListener(this)
+                    .searchTechnologies("");
         }
 
         @Override

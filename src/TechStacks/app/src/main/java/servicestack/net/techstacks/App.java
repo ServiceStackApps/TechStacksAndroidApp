@@ -144,13 +144,13 @@ public class App {
             }
 
             client.getAsync(new GetTechnology().setSlug(slug),
-                new AsyncResult<GetTechnologyResponse>() {
-                    @Override
-                    public void success(GetTechnologyResponse response) {
-                        technology = response;
-                        onUpdate(DataType.Technology);
-                    }
-                });
+                    new AsyncResult<GetTechnologyResponse>() {
+                        @Override
+                        public void success(GetTechnologyResponse response) {
+                            technology = response;
+                            onUpdate(DataType.Technology);
+                        }
+                    });
         }
 
         GetTechnologyStackResponse techStack = null;

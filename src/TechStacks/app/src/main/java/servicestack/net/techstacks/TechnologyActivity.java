@@ -1,9 +1,7 @@
 package servicestack.net.techstacks;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,14 +10,17 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import net.servicestack.client.Utils;
 
 import java.util.ArrayList;
 
+import net.servicestack.func.Function;
 import servicestack.net.techstacks.dto.GetTechnologyResponse;
 import servicestack.net.techstacks.dto.TechnologyStack;
 
-import static net.servicestack.client.Func.*;
+import static net.servicestack.func.Func.*;
 
 public class TechnologyActivity extends Activity implements App.AppDataListener {
 
@@ -34,10 +35,10 @@ public class TechnologyActivity extends Activity implements App.AppDataListener 
                 .loadTechnology(extras.getString("slug"));
 
         setLoadingTextViews(
-            R.id.lblTechnologyName,
-            R.id.lblTechnologyVendor,
-            R.id.lblTechnologyVendorUrl,
-            R.id.lblTechnologyDescription);
+                R.id.lblTechnologyName,
+                R.id.lblTechnologyVendor,
+                R.id.lblTechnologyVendorUrl,
+                R.id.lblTechnologyDescription);
 
         ImageView img = (ImageView) findViewById(R.id.imgTechnologyLogo);
         img.setImageBitmap(null);
@@ -84,12 +85,7 @@ public class TechnologyActivity extends Activity implements App.AppDataListener 
                 String imgUrl = result.getTechnology().getLogoUrl();
                 if (imgUrl != null){
                     final ImageView img = (ImageView) findViewById(R.id.imgTechnologyLogo);
-                    data.loadImage(imgUrl, new App.ImageResult() {
-                        @Override
-                        public void success(Bitmap response) {
-                            img.setImageBitmap(response);
-                        }
-                    });
+                    Picasso.with(getApplicationContext()).load(imgUrl).into(img);
                 }
 
                 ListView list = (ListView) findViewById(R.id.listTechnologyTechStacks);
